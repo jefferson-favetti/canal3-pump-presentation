@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneio Pump It Up - Evento Retro Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            color: #333333;
+        }
+
+        .page-container {
+            width: 29.7cm; /* Largura para A4 paisagem */
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section {
+            width: 100%;
+            height: 21cm; /* Altura fixa para A4 paisagem */
+            padding: 25px; /* Reduzindo o padding */
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+            /* Centralização vertical */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden; /* Evita conteúdo ultrapassando os limites */
+            box-sizing: border-box; /* Inclui padding e border no cálculo da altura */
+            page-break-inside: avoid; /* Evita quebras dentro da seção */
+            break-inside: avoid; /* Propriedade moderna para evitar quebras */
+        }
+
+        .content-section:last-child {
+            border-bottom: none;
+        }
+
+        h1 {
+            font-size: 2.8em; /* Reduzindo o tamanho */
+            margin-bottom: 20px; /* Reduzindo a margem */
+            background: linear-gradient(45deg, #e74c3c, #2ecc71, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 5px rgba(231, 76, 60, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.2em; /* Reduzindo o tamanho */
+            margin-bottom: 20px; /* Reduzindo a margem */
+            color: #2ecc71;
+            text-shadow: 0 0 3px rgba(46, 204, 113, 0.2);
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.8em; /* Reduzindo o tamanho */
+            margin-bottom: 15px; /* Reduzindo a margem */
+            color: #e74c3c;
+            text-shadow: 0 0 3px rgba(231, 76, 60, 0.2);
+            text-align: center;
+        }
+
+        p, li {
+            font-size: 1.1em; /* Reduzindo o tamanho */
+            line-height: 1.5; /* Reduzindo o espaçamento entre linhas */
+            margin-bottom: 12px; /* Reduzindo a margem */
+            color: #555555;
+        }
+
+        ul {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            list-style: none;
+        }
+
+        li {
+            padding: 10px 0; /* Reduzindo o padding */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            padding-left: 30px; /* Reduzindo o padding */
+        }
+
+        li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            width: 20px;
+            height: 20px;
+            background-image: url('imagens/pink arrow.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #f8c291, #82ccdd);
+            padding: 20px; /* Reduzindo o padding */
+            border-radius: 12px; /* Reduzindo o raio da borda */
+            margin: 20px 0; /* Reduzindo a margem */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight h3 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .phases-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Forçando 4 colunas */
+            gap: 15px; /* Reduzindo o espaçamento */
+            margin: 20px 0; /* Reduzindo a margem */
+        }
+        
+        /* Grid para seções com apenas 3 cards */
+        .phases-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Forçando 3 colunas */
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .phase-card {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 15px; /* Reduzindo o padding */
+            border-radius: 10px; /* Reduzindo o raio da borda */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .phase-card h4 {
+            color: #2ecc71;
+            font-size: 1.3em; /* Reduzindo o tamanho */
+            margin-bottom: 10px; /* Reduzindo a margem */
+            text-align: center;
+        }
+
+        .decoration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Reduzindo o tamanho mínimo */
+            gap: 15px; /* Reduzindo o espaçamento */
+            margin: 20px 0; /* Reduzindo a margem */
+        }
+
+        .decoration-item {
+            background: linear-gradient(135deg, #a29bfe 0%, #9b59b6 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .decoration-item:hover {
+            transform: scale(1.05);
+        }
+
+        .decoration-item h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .pump-logo {
+            width: 150px; /* Reduzindo o tamanho */
+            height: auto;
+            margin: 0 auto 15px; /* Reduzindo a margem */
+            display: block;
+            border-radius: 10px; /* Reduzindo o raio da borda */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Reduzindo a sombra */
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0; /* Reduzindo a margem */
+            position: relative;
+        }
+
+        .timeline-item {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #2ecc71;
+            position: relative;
+            z-index: 2;
+            min-width: 200px;
+        }
+
+        .timeline-item h4 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+        }
+
+        .tech-specs {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 20px; /* Reduzindo o padding */
+            border-radius: 10px; /* Reduzindo o raio da borda */
+            margin: 20px 0; /* Reduzindo a margem */
+            border-left: 4px solid #2ecc71; /* Reduzindo a borda */
+        }
+
+        .tech-specs h4 {
+            color: #2ecc71;
+            font-size: 1.3em; /* Reduzindo o tamanho */
+            margin-bottom: 10px; /* Reduzindo a margem */
+            text-align: center;
+        }
+
+        /* Grid para público-alvo */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        /* Schedule Styles */
+        .schedule-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px; /* Reduzindo o espaçamento */
+            margin-top: 20px; /* Reduzindo a margem */
+        }
+
+        .day-schedule {
+            background: linear-gradient(135deg, #2ecc71 0%, #3498db 100%);
+            padding: 15px; /* Reduzindo o padding */
+            border-radius: 10px; /* Reduzindo o raio da borda */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Reduzindo a sombra */
+        }
+
+        .day-schedule h3 {
+            color: white;
+            text-align: center;
+            margin-bottom: 12px; /* Reduzindo a margem */
+            font-size: 1.2em; /* Reduzindo o tamanho */
+            border-bottom: 1px solid rgba(255,255,255,0.5); /* Reduzindo a borda */
+            padding-bottom: 8px; /* Reduzindo o padding */
+        }
+
+        .schedule-item {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255,255,255,0.3);
+            margin-bottom: 10px; /* Reduzindo a margem */
+            padding: 10px; /* Reduzindo o padding */
+            border-radius: 8px; /* Reduzindo o raio da borda */
+            border-left: 3px solid #fff; /* Reduzindo a borda */
+        }
+
+        .schedule-item .time {
+            font-size: 1.1em; /* Reduzindo o tamanho */
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 3px; /* Reduzindo a margem */
+        }
+
+        .schedule-item .event {
+            color: #333333;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .schedule-item .duration {
+            color: #555555;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        @media print {
+            @page {
+                size: landscape; /* Forçando modo paisagem */
+                margin: 0; /* Removendo margens da página */
+            }
+            
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page-container {
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .content-section {
+                height: 100vh; /* Altura de 100% da viewport */
+                page-break-after: always; /* Força quebra após cada seção */
+                page-break-before: always; /* Força início em nova página */
+                page-break-inside: avoid; /* Evita quebras dentro da seção */
+                break-after: page; /* Propriedade moderna para quebra de página */
+                break-before: page; /* Propriedade moderna para início em nova página */
+                break-inside: avoid; /* Propriedade moderna para evitar quebras */
+                overflow: hidden; /* Evita conteúdo ultrapassando os limites */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center; /* Centralização horizontal também */
+                padding: 15px; /* Reduzindo ainda mais o padding na impressão */
+            }
+            
+            /* Ajustes adicionais para impressão */
+            h1 { font-size: 24pt; margin-bottom: 15px; }
+            h2 { font-size: 20pt; margin-bottom: 12px; }
+            h3 { font-size: 16pt; margin-bottom: 10px; }
+            p, li { font-size: 10pt; margin-bottom: 8px; }
+            
+            /* Removendo bordas e sombras na impressão */
+            .tech-specs, .highlight, .phase-card, .day-schedule {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Seção 1: Título -->
+        <div class="content-section">
+            <img class="pump-logo" src="imagens/PumpItUp-LX-cabinet-918x1024.webp" alt="Pump It Up Machine">
+            <h1>Torneio Pump It Up</h1>
+            <h3>Proposta de atração para o Canal 3 Expo</h3>
+            <div class="highlight" style="text-align: center;">
+                <p>Proposta de criação de um torneio do jogo de ritmo Pump it up para entreter o público do evento</p>
+            </div>
+        </div>
+
+        <!-- Seção 2: Propósito -->
+        <div class="content-section">
+            <h2>Por que um Campeonato de Pump em um evento de Retro Games?</h2>
+            <div class="tech-specs">
+                <h4>📜 Propósito</h4>
+                <ul>
+                    <li><strong>Nostalgia Interativa:</strong> Pump It Up representa os arcades dos anos 2000</li>
+                    <li><strong>Ponte Geracional:</strong> Conecta veteranos dos fliperamas com a nova geração</li>
+                    <li><strong>Espetáculo Visual:</strong> Performances de alto rendimento que impressionam e que atraem espectadores</li>
+                    <li><strong>Cultura Gaming:</strong> Celebra a evolução dos jogos de ritmo, que é muito forte na cultura de arcades orientais</li>
+                    <li><strong>Atratividade do K-pop:</strong> Músicas de K-pop extremamente populares atualmente que despertam grande interesse dos visitantes</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Seção 3: Benefícios do Torneio -->
+        <div class="content-section">
+            <h2>Benefícios do Torneio</h2>
+            <div class="tech-specs">
+                <h4>📈 Benefícios do Torneio</h4>
+                <ul>
+                    <li><strong>Entretenimento Ativo:</strong> Competição ao vivo com competidores de alto nível nacional que cativa o público</li>
+                    <li><strong>Diversidade de Conteúdo:</strong> Traz um espetáculo diferente ao público que está diretamente ligado com a cultura dos arcades</li>
+                    <li><strong>Networking:</strong> Conecta jogadores e entusiastas da comunidade</li>
+                    <li><strong>Experiência diferenciada:</strong> Proporciona um ambiente competitivo que cria momentos únicos e marcantes para os espectadores</li>
+                    <li><strong>Atração Cultural:</strong> Utiliza a popularidade atual do K-pop para atrair visitantes e despertar interesse no evento</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Seção 4: Público-Alvo -->
+        <div class="content-section">
+            <h2>Quem é o Público-Alvo?</h2>
+            <div class="audience-grid">
+                <div class="tech-specs">
+                    <h4>👥 Público-Alvo Principal</h4>
+                    <ul>
+                        <li><strong>Entusiastas de Retro Games:</strong> Apreciadores da cultura arcade</li>
+                        <li><strong>Jogadores de Ritmo:</strong> Comunidade ativa de dance games</li>
+                        <li><strong>Fãs de K-pop:</strong> Público atraído pela música e cultura coreana em alta</li>
+                        <li><strong>Espectadores Casuais:</strong> Visitantes do evento interessados em competições</li>
+                        <li><strong>Criadores de Conteúdo:</strong> Streamers e YouTubers do nicho gaming</li>
+                    </ul>
+                </div>
+
+                <div class="tech-specs">
+                    <h4>👤 Perfil dos Participantes</h4>
+                    <ul>
+                        <li><strong>Faixa Etária:</strong> 16 a 40 anos, com picos entre 18-35 anos</li>
+                        <li><strong>Experiência:</strong> Desde iniciantes curiosos até veteranos competitivos</li>
+                        <li><strong>Motivação:</strong> Diversão, competição, nostalgia e socialização</li>
+                        <li><strong>Engajamento:</strong> Alto interesse em cultura gaming, música eletrônica e K-Pop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção 5: Formato do Torneio Profissional -->
+        <div class="content-section">
+            <h2>Formato do Torneio Profissional</h2>
+            <div class="phases-grid">
+                <div class="phase-card">
+                    <h4>▶️ 1ª Fase - Single</h4>
+                    <p><strong>Participantes:</strong><br>Aprox. 20 jogadores</p>
+                    <p><strong>Músicas:</strong><br>2 por jogador</p>
+                    <p><strong>Classificados:</strong><br>12 melhores</p>
+                    <p><strong>Duração:</strong><br>1h 40m</p>
+                </div>
+                <div class="phase-card">
+                    <h4>▶️ 2ª Fase - Single</h4>
+                    <p><strong>Participantes:</strong><br>12 jogadores</p>
+                    <p><strong>Músicas:</strong><br>2 por jogador</p>
+                    <p><strong>Classificados:</strong><br>6 melhores</p>
+                    <p><strong>Duração:</strong><br>1h</p>
+                </div>
+                <div class="phase-card">
+                    <h4>▶️ Semi-Final - Double</h4>
+                    <p><strong>Participantes:</strong><br>6 jogadores</p>
+                    <p><strong>Músicas:</strong><br>2 por jogador</p>
+                    <p><strong>Classificados:</strong><br>2 finalistas</p>
+                    <p><strong>Duração:</strong><br>1h</p>
+                </div>
+                <div class="phase-card">
+                    <h4>🏆 Grande Final - Double</h4>
+                    <p><strong>Participantes:</strong><br>2 finalistas</p>
+                    <p><strong>Formato:</strong><br>MD3 (Melhor de 3)</p>
+                    <p><strong>Duração:</strong><br>30m</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <h3>⏱️ Duração Estimada: 4 horas + intervalos (aprox. 30m)</h3>
+                <p>Formato compacto e dinâmico, perfeito para manter o público engajado durante todo o evento</p>
+            </div>
+        </div>
+
+        <!-- Seção 6: Formato do Torneio Co-op -->
+        <div class="content-section">
+            <h2>Formato do Torneio Co-op</h2>
+            <div class="phases-grid">
+                <div class="phase-card">
+                    <h4>▶️ 1ª Fase</h4>
+                    <p><strong>Participantes:</strong><br>Aprox. 12 duplas</p>
+                    <p><strong>Músicas:</strong><br>2 por dupla</p>
+                    <p><strong>Classificados:</strong><br>8 melhores duplas</p>
+                    <p><strong>Duração:</strong><br>Aprox. 1h 45m</p>
+                </div>
+                <div class="phase-card">
+                    <h4>▶️ 2ª Fase</h4>
+                    <p><strong>Participantes:</strong><br>8 duplas</p>
+                    <p><strong>Músicas:</strong><br>2 por dupla</p>
+                    <p><strong>Classificados:</strong><br>4 melhores duplas</p>
+                    <p><strong>Duração:</strong><br>1h 15m</p>
+                </div>
+                <div class="phase-card">
+                    <h4>▶️ Semi-Final</h4>
+                    <p><strong>Participantes:</strong><br>4 duplas</p>
+                    <p><strong>Músicas:</strong><br>2 por dupla</p>
+                    <p><strong>Classificados:</strong><br>2 duplas finalistas</p>
+                    <p><strong>Duração:</strong><br>40m</p>
+                </div>
+                <div class="phase-card">
+                    <h4>🏆 Grande Final</h4>
+                    <p><strong>Participantes:</strong><br>2 duplas finalistas</p>
+                    <p><strong>Músicas:</strong><br>2 por dupla</p>
+                    <p><strong>Formato:</strong><br>Melhor dupla vence</p>
+                    <p><strong>Duração:</strong><br>20m</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <h3>⏱️ Duração Estimada: 4 horas + intervalos (aprox. 30m)</h3>
+                <p>Campeonato de duplas no modo cooperativo, priorizando a diversão e trabalho em equipe. <strong>Diferente das outras modalidades</strong>, o Co-op é divertido tanto para quem joga quanto para quem assiste, pois os passos diversificados encantam os espectadores, proporcionam momentos engraçados e despertam curiosidade para esse tipo único de gameplay.</p>
+            </div>
+        </div>
+
+        <!-- Seção 7: Formato do Torneio Iniciante -->
+        <div class="content-section">
+            <h2>Formato do Torneio Iniciante</h2>
+            <div class="phases-grid-3">
+                <div class="phase-card">
+                    <h4>⚔️ Eliminação Direta</h4>
+                    <p><strong>Formato:</strong><br>Confrontos 1 vs 1</p>
+                    <p><strong>Músicas:</strong><br>1 música por confronto</p>
+                    <p><strong>Critério:</strong><br>Maior pontuação avança</p>
+                    <p><strong>Eliminação:</strong><br>Perdedor é eliminado</p>
+                </div>
+                <div class="phase-card">
+                    <h4>🎮 Níveis de Dificuldade</h4>
+                    <p><strong>Faixas:</strong><br>Beginner (1-5)</p>
+                    <p><strong>Velocidade:</strong><br>Baixa e confortável</p>
+                    <p><strong>Padrões:</strong><br>Simples e intuitivos</p>
+                    <p><strong>Foco:</strong><br>Diversão e aprendizado</p>
+                </div>
+                <div class="phase-card">
+                    <h4>🏗️ Estrutura do Torneio</h4>
+                    <p><strong>Participantes:</strong><br>Até 16 jogadores</p>
+                    <p><strong>Músicas populares:</strong><br>K-Pop ((G)I-IDLE), STAYC!, EVERGLOW e mais)</p>
+                    <p><strong>Duração:</strong><br>1h 15m + intervalos (15m aprox.)</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <h3>🎮 Atração especial para visitantes do evento</h3>
+                <p>Uma oportunidade divertida para todos experimentarem o jogo, competindo com amigos, familiares ou outros visitantes. O objetivo é proporcionar uma experiência acolhedora e divertida, incentivando a participação e o interesse pelo jogo. A seleção de músicas K-pop atuais é um grande atrativo que desperta o interesse dos visitantes mesmo sem experiência prévia.</p>
+            </div>
+        </div>
+
+        <!-- Seção 8: Formato do Torneio Intermediário -->
+        <div class="content-section">
+            <h2>Formato do Torneio Intermediário</h2>
+            <div class="phases-grid-3">
+                <div class="phase-card">
+                    <h4>⚔️ Eliminação Direta</h4>
+                    <p><strong>Formato:</strong><br>Confrontos 1 vs 1</p>
+                    <p><strong>Músicas:</strong><br>1 música por confronto</p>
+                    <p><strong>Critério:</strong><br>Maior pontuação avança</p>
+                    <p><strong>Eliminação:</strong><br>Perdedor é eliminado</p>
+                </div>
+                <div class="phase-card">
+                    <h4>🎮 Níveis de Dificuldade</h4>
+                    <p><strong>Faixas:</strong><br>Intermediate (6-10)</p>
+                    <p><strong>Velocidade:</strong><br>Moderada, mas confortável</p>
+                    <p><strong>Padrões:</strong><br>Complexos e desafiadores</p>
+                    <p><strong>Foco:</strong><br>Competição e habilidade</p>
+                </div>
+                <div class="phase-card">
+                    <h4>🏗️ Estrutura do Torneio</h4>
+                    <p><strong>Participantes:</strong><br>Até 16 jogadores</p>
+                    <p><strong>Músicas populares:</strong><br>K-Pop ((G)I-IDLE, STAYC!, EVERGLOW e mais)</p>
+                    <p><strong>Duração:</strong><br>1h 15m + intervalos (15m aprox.)</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <h3>⚡ Dedicado ao público com experiência intermediária</h3>
+                <p>O objetivo é de proporcionar uma experiência desafiadora e competitiva para jogadores com um pouco de conhecimento do jogo, elevando o nível de dificuldade em relação a categoria iniciante. As músicas de K-pop atuais são um grande diferencial que mantém o interesse dos participantes e espectadores.</p>
+            </div>
+        </div>
+
+        <!-- Seção 9: Versão do Jogo -->
+        <div class="content-section">
+            <h2>Qual a versão do jogo utilizada?</h2>
+            <div class="tech-specs">
+                <h4>🎮 Pump It Up Phoenix</h4>
+                <ul>
+                    <li><strong>Versão:</strong> Atual e mais recente do jogo</li>
+                    <li><strong>Vantagens:</strong> Recursos modernos e músicas atualizadas</li>
+                    <li><strong>Qualidade:</strong> Melhor experiência visual e sonora</li>
+                    <li><strong>Competitividade:</strong> Padrão internacional de torneios</li>
+                </ul>
+            </div>
+            <div class="highlight">
+                <h3>🌐 Requisito Técnico Importante</h3>
+                <p><strong>Conexão Online Necessária:</strong> A máquina deve permanecer conectada via cabo de rede durante todo o evento para aproveitar todos os recursos da Pump Phoenix</p>
+            </div>
+        </div>
+
+        <!-- Seção 10: Benefícios da Versão Phoenix -->
+        <div class="content-section">
+            <h2>Benefícios da Versão Phoenix</h2>
+            <div class="tech-specs">
+                <h4>📊 Benefícios da Versão Phoenix</h4>
+                <ul>
+                    <li><strong>Biblioteca Musical:</strong> Mais de 300 músicas disponíveis, incluindo hits recentes de K-pop</li>
+                    <li><strong>Modos de Jogo:</strong> Single, Double, Co-op e Performance</li>
+                    <li><strong>Gráficos HD:</strong> Qualidade visual superior</li>
+                    <li><strong>Sistema de Ranking:</strong> Classificação online integrada</li>
+                    <li><strong>Atratividade Cultural:</strong> Forte conexão com a cultura K-pop, extremamente popular atualmente</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Seção 11: Cronograma de Realização -->
+        <div class="content-section">
+            <h2>Cronograma de Realização</h2>
+            <div class="schedule-container">
+                <div class="day-schedule">
+                    <h3>🗓️ Sábado - 13 de Setembro</h3>
+                    <div class="schedule-item">
+                        <span class="time">12:00</span>
+                        <span class="event">Início do Campeonato <strong>Iniciante</strong></span>
+                        <span class="duration">Término previsto: 13:30</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="time">14:00</span>
+                        <span class="event">Início da Categoria <strong>Profissional Mista</strong></span>
+                        <span class="duration">Término previsto: 18:30</span>
+                    </div>
+                </div>
+                
+                <div class="day-schedule">
+                    <h3>🗓️ Domingo - 14 de Setembro</h3>
+                    <div class="schedule-item">
+                        <span class="time">12:00</span>
+                        <span class="event">Início do Campeonato <strong>Intermediário</strong></span>
+                        <span class="duration">Término previsto: 13:30</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="time">14:00</span>
+                        <span class="event">Início da Categoria <strong>Co-op Mista</strong></span>
+                        <span class="duration">Término previsto: 18:30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção 12: Resumo Final -->
+        <div class="content-section">
+            <h2>Resumo das Categorias Propostas</h2>
+            <div class="phases-grid">
+                <div class="phase-card">
+                    <h4>🏆 Torneio Profissional</h4>
+                    <p><strong>Participantes:</strong> ~20 jogadores</p>
+                    <p><strong>Duração:</strong><br>4h + intervalos</p>
+                    <p><strong>Público:</strong> Jogadores experientes</p>
+                </div>
+                <div class="phase-card">
+                    <h4>🤝 Torneio Co-op</h4>
+                    <p><strong>Participantes:</strong> ~12 duplas</p>
+                    <p><strong>Duração:</strong><br>4h + intervalos</p>
+                    <p><strong>Público:</strong> Foco em trabalho em equipe</p>
+                    <p><strong>Diferencial:</strong> Espetáculo visual único que encanta espectadores</p>
+                </div>
+                <div class="phase-card">
+                    <h4>👶 Torneio Iniciante</h4>
+                    <p><strong>Modalidade:</strong> Eliminação direta</p>
+                    <p><strong>Níveis:</strong> Iniciantes</p>
+                    <p><strong>Duração:</strong> ~1h 15m</p>
+                    <p><strong>Público:</strong> Sem experiência prévia</p>
+                </div>
+                <div class="phase-card">
+                    <h4>⚡ Torneio Intermediário</h4>
+                    <p><strong>Modalidade:</strong> Eliminação direta</p>
+                    <p><strong>Níveis:</strong> Intermediários</p>
+                    <p><strong>Duração:</strong> ~1h 30m</p>
+                    <p><strong>Público:</strong> Pouca experiência</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <h3>🚀 Resultado Esperado</h3>
+                <p><strong>Networking:</strong> Reúne jogadores e entusiastas da comunidade de arcades e de jogos de ritmo<br><strong>Experiência Diferenciada:</strong> Proporciona um ambiente competitivo que cria momentos únicos e marcantes para os espectadores</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
